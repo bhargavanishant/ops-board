@@ -1,0 +1,29 @@
+.header {
+    display: flex;
+    align-items: center;
+    gap: 13.6px;
+    height: 52px;
+    flex: none;
+    padding: 0 13.6px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+    position: relative;
+    z-index: 20;
+}
+
+.brand-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 196px;
+    flex: none;
+}
+
+.brand-header-sre {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--ink-45);
+    border: 1px solid var(--line);
+    padding: 1px 4px;
+}

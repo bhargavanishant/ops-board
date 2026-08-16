@@ -1,0 +1,30 @@
+.small-card-header {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+}
+
+.small-card-content {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin: 6px 6px 6px 0;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.small-card-subtext {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    margin-top: 2px;
+}
+
+.small-card-footer {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    margin-top: 2px;
+    color: var(--ink-55);
+}

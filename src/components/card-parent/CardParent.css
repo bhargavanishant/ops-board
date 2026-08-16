@@ -1,0 +1,6 @@
+.card-parent-container {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 10.2px 13.6px;
+    flex: 1 1 2px;
+}

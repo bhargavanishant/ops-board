@@ -1,0 +1,151 @@
+/* Design tokens — shared across the app; component-specific styling belongs
+   in that component's own .css file, not here. */
+:root {
+  --font-head: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-head);
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --bg: #faf9f4;
+  --surface: #ffffff;
+  --line: #d9d9d9;
+
+  --ink: #0b0e14;
+  --ink-75: rgba(11, 14, 20, 0.75);
+  --ink-65: rgba(11, 14, 20, 0.65);
+  --ink-55: rgba(11, 14, 20, 0.55);
+  --ink-50: rgba(11, 14, 20, 0.5);
+  --ink-30: rgba(11, 14, 20, 0.3);
+  --ink-07: rgba(11, 14, 20, 0.07);
+
+  --accent: #2f5bff;
+  --accent-hover: #2547d6;
+  --accent-ink: #2547d6;
+  --acc-10: rgba(47, 91, 255, 0.08);
+
+  /* Dark ops-panel background — deliberately theme-invariant, see the
+     dark-scheme block below. */
+  --accent-deep: #0b1020;
+
+  --crit: #dc2626;
+  --crit-bg: #fef2f2;
+  --crit-ink: #991b1b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0e14;
+    --surface: #11151d;
+    --line: #232833;
+
+    --ink: #e7e9ee;
+    --ink-75: rgba(231, 233, 238, 0.75);
+    --ink-65: rgba(231, 233, 238, 0.65);
+    --ink-55: rgba(231, 233, 238, 0.55);
+    --ink-50: rgba(231, 233, 238, 0.5);
+    --ink-30: rgba(231, 233, 238, 0.3);
+    --ink-07: rgba(231, 233, 238, 0.07);
+
+    --accent: #5b82ff;
+    --accent-hover: #7a9aff;
+    --accent-ink: #7a9aff;
+    --acc-10: rgba(91, 130, 255, 0.14);
+
+    --crit: #f87171;
+    --crit-bg: rgba(239, 68, 68, 0.12);
+    --crit-ink: #fecaca;
+  }
+}
+
+/* Accent themes — user-selectable in Settings, stored under the "blue"
+   (default), "green", "violet" and "amber" ids. Only the accent tokens
+   change; surface/ink/crit tokens stay put so the rest of the palette
+   above still governs light vs. dark. "blue" needs no override block —
+   it's already the :root default. */
+[data-theme="green"] {
+  --accent: #059669;
+  --accent-hover: #047857;
+  --accent-ink: #047857;
+  --acc-10: rgba(5, 150, 105, 0.08);
+}
+
+[data-theme="violet"] {
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-ink: #6d28d9;
+  --acc-10: rgba(124, 58, 237, 0.08);
+}
+
+[data-theme="amber"] {
+  --accent: #b45309;
+  --accent-hover: #92400e;
+  --accent-ink: #92400e;
+  --acc-10: rgba(180, 83, 9, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="green"] {
+    --accent: #34d399;
+    --accent-hover: #6ee7b7;
+    --accent-ink: #6ee7b7;
+    --acc-10: rgba(52, 211, 153, 0.14);
+  }
+
+  [data-theme="violet"] {
+    --accent: #a78bfa;
+    --accent-hover: #c4b5fd;
+    --accent-ink: #c4b5fd;
+    --acc-10: rgba(167, 139, 250, 0.14);
+  }
+
+  [data-theme="amber"] {
+    --accent: #fbbf24;
+    --accent-hover: #fcd34d;
+    --accent-ink: #fcd34d;
+    --acc-10: rgba(251, 191, 36, 0.14);
+  }
+}
+
+:root {
+  font: 16px/1.45 var(--font-body);
+  color-scheme: light dark;
+  color: var(--ink);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+h1 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.subtitle {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--ink-55);
+}
+
+.page-status {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
