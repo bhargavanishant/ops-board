@@ -1,13 +1,20 @@
 import { useState, useEffect, useRef } from "react";
+import { Check } from "lucide-react";
 import "./Dropdown.css";
 
-export default function Dropdown({ label, filler, options }: { label?: string; filler?: string; options: any[] }) {
+export interface DropdownOption {
+    value: string;
+    label: string;
+    color?: string;  // CSS color (token or hex) for the left indicator bar
+    count?: number;   // right-aligned value; omit to hide the column entirely
+}
+
+export default function Dropdown({ label, filler, options, isFilter }: { label?: string; filler?: string; options: any[], isFilter?: boolean }) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [selectedOption, setSelectedOption] = useState<any>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [coords, setCoords] = useState({ top: 0, left: 0 });
-    const [isSelected, setIsSelected] = useState(false);
     useEffect(() => {
         if (buttonRef.current) {
             const rect = buttonRef.current.getBoundingClientRect();
@@ -15,10 +22,13 @@ export default function Dropdown({ label, filler, options }: { label?: string; f
         }
     }, [isOpen]);
 
-    function handleSelection(options: any, index: number) {
-        setSelectedOption(options);
+    function handleSelection(option: any, index: number | null) {
+        if(option.label !== filler) {
+            setSelectedOption(option);
+        }else{
+            setSelectedOption(null);
+        }
         setSelectedIndex(index);
-        setIsSelected(true);
         setIsOpen(false);
     }
 
@@ -34,24 +44,44 @@ export default function Dropdown({ label, filler, options }: { label?: string; f
             >
                 {label} {selectedOption ? <span className="selected-option-color">{selectedOption.label}</span> : <span className="dropdown-filler">{filler}</span>}
             </button>
-
+            {isFilter && <div className="dropdown-filtering">Filtering...</div>}
             {isOpen && (
-                <ul
-                    className="dropdown-menu"
-                    role="listbox"
-                    style={{
-                        top: `${coords.top}px`,
-                        left: `${coords.left}px`,
-                    }}
-                >
+                <ul className="dropdown-menu" role="listbox" style={{ top: coords.top, left: coords.left }}>
+                    {filler && (
+                        <li
+                            className="dropdown-item dropdown-item-reset"
+                            role="option"
+                            aria-selected={selectedIndex === null}
+                            onClick={() => handleSelection({ label: filler }, null)}
+                        >
+                            <span>{filler}</span>
+                            {selectedIndex === null && (
+                                <Check className="dropdown-item-tick" size={15} strokeWidth={2.5} aria-hidden="true" />
+                            )}
+                        </li>
+                    )}
                     {options.map((option, index) => (
-                        <li key={option.value ?? index}
+                        <li
+                            key={option.value ?? index}
                             className="dropdown-item"
                             role="option"
-                            aria-selected={isSelected}
+                            aria-selected={index === selectedIndex}
                             onClick={() => handleSelection(option, index)}
                         >
-                            {option.label ?? option}
+                            <span className="dropdown-item-left">
+                                {option.color && (
+                                    <span className="dropdown-item-swatch" style={{ background: option.color }} />
+                                )}
+                                <span>{option.label ?? option}</span>
+                            </span>
+                            <span className="dropdown-item-right">
+                                {option.count !== undefined && (
+                                    <span className="dropdown-item-count">{option.count}</span>
+                                )}
+                                {index === selectedIndex && (
+                                    <Check className="dropdown-item-tick" size={15} strokeWidth={2.5} aria-hidden="true" />
+                                )}
+                            </span>
                         </li>
                     ))}
                 </ul>

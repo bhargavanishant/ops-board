@@ -4,13 +4,26 @@ import "./Incidents.css";
 import Dropdown from "../../components/dropdown/Dropdown";
 
 export default function Incidents() {
-    const options1 = [
-        { value: "6", label: "Open" },
-        { value: "3", label: "Investigating" },
-        { value: "3", label: "Identified" },
-        { value: "7", label: "Monitoring" },
-        { value: "8", label: "Resolved" },
-    ]
+    const statusOptions = [
+        { count: "6", value:"open",  label: "Open", color: "#4338ca" },
+        { count: "3", value:"investigating", label: "Investigating", color: "#b45309" },
+        { count: "3", value:"identified", label: "Identified", color: "var(--ink-55)"},
+        { count: "7", value:"monitoring", label: "Monitoring", color: "#059669" },
+        { count: "8", value:"resolve", label: "Resolved", color: "var(--ink-30)" },
+    ];
+    const priorityOptions = [
+        { value: "critical", label: "Critical", color: "var(--crit)", count: 4 },
+        { value: "high", label: "High", color: "#b45309", count: 7 },
+        { value: "medium", label: "Medium", color: "#4338ca", count: 7 },
+        { value: "low", label: "Low", color: "var(--ink-30)", count: 6 },
+    ];
+    const environmentOptions = [
+        { count: "6", value:"open",  label: "Open"},
+        { count: "3", value:"investigating", label: "Investigating" },
+        { count: "3", value:"identified", label: "Identified"},
+        { count: "7", value:"monitoring", label: "Monitoring" },
+        { count: "8", value:"resolve", label: "Resolved" },
+    ];
     const handleSearch = (query: string) => {
         console.log(query);
     };
@@ -34,11 +47,11 @@ export default function Incidents() {
                 <SmallCard title="Resolved Today" children="8" />
             </div>
             <div className="incident-filters">
-                <Dropdown label="Status" filler="Any Status" options={options1} />
-                <Dropdown label="Priority" filler="Any" options={options1} />
-                <Dropdown label="Service" filler="All Services" options={options1} />
-                <Dropdown label="Service" filler="All Services" options={options1} />
-                <Dropdown label="Service" filler="All Services" options={options1} />
+                <Dropdown label="Status" filler="Any Status" options={statusOptions} />
+                <Dropdown label="Priority" filler="Any" options={priorityOptions} />
+                <Dropdown label="Service" filler="All Services" options={statusOptions} />
+                <Dropdown label="Env" filler="All" options={environmentOptions} />
+                <Dropdown label="Assignee" filler="Anyone" options={statusOptions} />
                 <SearchBar placeholder="Search incidents..." onSearch={handleSearch} width="300px" />
             </div>
         </>
