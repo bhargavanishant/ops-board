@@ -2,19 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { Check } from "lucide-react";
 import "./Dropdown.css";
 
-export interface DropdownOption {
-    value: string;
-    label: string;
-    color?: string;  // CSS color (token or hex) for the left indicator bar
-    count?: number;   // right-aligned value; omit to hide the column entirely
-}
-
-export default function Dropdown({ label, filler, options, isFilter }: { label?: string; filler?: string; options: any[], isFilter?: boolean }) {
+export default function Dropdown({ label, filler, options, isFilter, filterPlaceholder }: { label?: string; filler?: string; options: any[], isFilter?: boolean, filterPlaceholder?: string }) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [selectedOption, setSelectedOption] = useState<any>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [coords, setCoords] = useState({ top: 0, left: 0 });
+
     useEffect(() => {
         if (buttonRef.current) {
             const rect = buttonRef.current.getBoundingClientRect();
@@ -44,9 +38,16 @@ export default function Dropdown({ label, filler, options, isFilter }: { label?:
             >
                 {label} {selectedOption ? <span className="selected-option-color">{selectedOption.label}</span> : <span className="dropdown-filler">{filler}</span>}
             </button>
-            {isFilter && <div className="dropdown-filtering">Filtering...</div>}
+            
             {isOpen && (
-                <ul className="dropdown-menu" role="listbox" style={{ top: coords.top, left: coords.left }}>
+                <ul
+                    className="dropdown-menu"
+                    role="listbox"
+                    style={{ top: coords.top, left: coords.left, width: isFilter ? 280 : undefined }}
+                >
+                    {isFilter && <div className="dropdown-filtering">
+                            <input type="text" placeholder={filterPlaceholder} className="dropdown-filter-input" />
+                        </div>}
                     {filler && (
                         <li
                             className="dropdown-item dropdown-item-reset"

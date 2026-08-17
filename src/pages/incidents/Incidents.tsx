@@ -18,11 +18,10 @@ export default function Incidents() {
         { value: "low", label: "Low", color: "var(--ink-30)", count: 6 },
     ];
     const environmentOptions = [
-        { count: "6", value:"open",  label: "Open"},
-        { count: "3", value:"investigating", label: "Investigating" },
-        { count: "3", value:"identified", label: "Identified"},
-        { count: "7", value:"monitoring", label: "Monitoring" },
-        { count: "8", value:"resolve", label: "Resolved" },
+        { count: "19", value:"open",  label: "Production"},
+        { count: "2", value:"investigating", label: "Staging" },
+        { count: "1", value:"identified", label: "Development"},
+        { count: "2", value:"monitoring", label: "QA" },
     ];
     const handleSearch = (query: string) => {
         console.log(query);
@@ -49,7 +48,7 @@ export default function Incidents() {
             <div className="incident-filters">
                 <Dropdown label="Status" filler="Any Status" options={statusOptions} />
                 <Dropdown label="Priority" filler="Any" options={priorityOptions} />
-                <Dropdown label="Service" filler="All Services" options={statusOptions} />
+                <Dropdown label="Service" filler="All Services" options={statusOptions} isFilter={true} filterPlaceholder="Search service..."/>
                 <Dropdown label="Env" filler="All" options={environmentOptions} />
                 <Dropdown label="Assignee" filler="Anyone" options={statusOptions} />
                 <SearchBar placeholder="Search incidents..." onSearch={handleSearch} width="300px" />
